@@ -41,6 +41,18 @@ resource "alicloud_vswitch" "ops" {
 #   status                 = "Enabled"
 # }
 
+# ============================================
+# DATA SOURCE: Palo Alto ENI ID
+# ============================================
+data "alicloud_network_interfaces" "palo_alto" {
+  depends_on = [alicloud_instance.palo_alto]
+  
+  instance_id = alicloud_instance.palo_alto[0].id
+}
+
+# ============================================
+# PALO ALTO FIREWALL (MOCK)
+# ============================================
 # Security Group for Palo Alto
 resource "alicloud_security_group" "fw" {
   security_group_name = "${var.environment}-palo-alto-sg"
@@ -78,12 +90,45 @@ resource "alicloud_route_table_attachment" "trusted" {
   route_table_id = alicloud_route_table.trusted_rt.id
 }
 
+# Route to Palo Alto for all outbound traffic
 resource "alicloud_route_entry" "to_firewall" {
   route_table_id        = alicloud_route_table.trusted_rt.id
   destination_cidrblock = "0.0.0.0/0"
   nexthop_type          = "NetworkInterface"
   nexthop_id            = data.alicloud_network_interfaces.palo_alto_eni.ids[0]
 }
+
+# ============================================
+# IPv4 GATEWAY (For Inbound Traffic)
+# ============================================
+resource "alicloud_vpc_ipv4_gateway" "default" {
+  ipv4_gateway_name = "${var.environment}-ipv4-gateway"
+  vpc_id            = alicloud_vpc.hub.id
+  enabled           = true
+}
+
+# ============================================
+# GATEWAY ROUTE TABLE (For Inbound Traffic)
+# ============================================
+resource "alicloud_route_table" "inbound" {
+  vpc_id           = alicloud_vpc.hub.id
+  route_table_name = "${var.environment}-inbound-gateway-rt"
+  description      = "Gateway route table for inbound traffic via Palo Alto"
+  associate_type = "Gateway"  # To make it works as Gateway route table
+}
+
+# ============================================
+# GATEWAY ROUTE ENTRIES (Redirect Inbound Traffic to Palo Alto)
+# ============================================
+# need to config Palo Alto DNAT instead for it to work
+# resource "alicloud_route_entry" "inbound_to_palo_alto" {
+#   for_each = toset(var.inbound_redirect_cidrs)
+  
+#   route_table_id        = alicloud_route_table.inbound.id
+#   destination_cidrblock = each.value
+#   nexthop_type          = "NetworkInterface"
+#   nexthop_id            = data.alicloud_network_interfaces.palo_alto.ids[0]
+# }
 
 # Unified Ingress SLB
 resource "alicloud_slb_load_balancer" "ingress" {

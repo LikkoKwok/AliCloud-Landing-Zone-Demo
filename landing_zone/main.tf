@@ -6,11 +6,16 @@ locals {
   })
 }
 
-module "master_account" {
-  source      = "./modules/01_master_account"
-  environment = var.environment
-  tags        = local.base_tags
-}
+# ============================================
+# DISABLED: Master Account Module
+# Reason: Resource Directory already exists and member accounts are created manually
+# ============================================
+# module "master_account" {
+#   source      = "./modules/01_master_account"
+#   environment = var.environment
+#   tags        = local.base_tags
+#   providers   = { alicloud = alicloud.master }
+# }
 
 module "identity_sso" {
   source                = "./modules/02_identity_sso"
@@ -26,6 +31,7 @@ module "hub_security" {
   region                  = var.region
   secondary_region        = var.secondary_region
   hub_vpc_cidr            = var.hub_vpc_cidr
+  inbound_redirect_cidrs = [var.core_insurance_vpc_cidr, var.ai_lab_vpc_cidr,]
   transit_router_id       = var.transit_router_id
   firewall_instance_type  = var.firewall_instance_type
   backbone_bandwidth_mbps = var.backbone_bandwidth_mbps

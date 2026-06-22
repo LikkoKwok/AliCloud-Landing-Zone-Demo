@@ -1,9 +1,9 @@
 # Azure Entra ID as SAML IdP (to be provided)
-# resource "alicloud_ram_saml_provider" "azure_ad" {
-#   saml_provider_name             = "AzureEntraID-SSO"
-#   description                    = "Azure Entra ID SAML federation"
-#   encodedsaml_metadata_document  = var.azure_ad_metadata_url
-# }
+resource "alicloud_ram_saml_provider" "azure_ad" {
+  saml_provider_name             = "AzureEntraID-SSO"
+  description                    = "Azure Entra ID SAML federation"
+  encodedsaml_metadata_document  = filebase64("azure_ad_metadata.xml")
+}
 
 locals {
   ai_roles = {
@@ -30,7 +30,7 @@ resource "alicloud_ram_role" "federated" {
     Statement = [{
       Action    = "sts:AssumeRole"
       Effect    = "Allow"
-      # Principal = { Federated = [alicloud_ram_saml_provider.azure_ad.arn] }
+      Principal = { Federated = [alicloud_ram_saml_provider.azure_ad.arn] }
       Condition = {
         StringEquals = { "saml:recipient" = "https://signin.alibabacloud.com/saml-role/sso" }
       }

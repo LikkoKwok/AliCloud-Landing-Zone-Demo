@@ -1,6 +1,6 @@
-output "resource_directory_id" {
-  value = module.master_account.resource_directory_id
-}
+# output "resource_directory_id" {
+#   value = module.master_account.resource_directory_id
+# }
 
 # output "saml_provider_arn" {
 #   value = module.identity_sso.saml_provider_arn

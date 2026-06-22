@@ -1,3 +1,4 @@
+# no need to provide ID for default master ac, it is authorized by access_key and secret_key
 provider "alicloud" {
   alias  = "master"
   region = var.region
@@ -6,16 +7,6 @@ provider "alicloud" {
 provider "alicloud" {
   alias  = "singapore"
   region = var.secondary_region
-}
-
-variable "account_ids" {
-  type = map(string)
-}
-
-# no need to provide ID for default master ac, it is authorized by access_key and secret_key
-provider "alicloud" {
-  alias  = "master"
-  region = var.region
 }
 
 provider "alicloud" {

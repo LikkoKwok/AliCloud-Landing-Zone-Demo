@@ -55,11 +55,11 @@ variable "account_ids" {
   type = map(string)
   default = {
     shared_service = "5947182043430388"
-    hub_security    = "5204482043670830"
-    log    = "5512782043745792"
-    app    = "5641082043830083"
-    ai_inference = "5025582043875056"
-    ai_training = "5977182043911351"
+    hub_security   = "5204482043670830"
+    log            = "5512782043745792"
+    app            = "5641082043830083"
+    ai_inference   = "5025582043875056"
+    ai_training    = "5977182043911351"
   }
 }
 
@@ -135,5 +135,5 @@ variable "common_tags" {
 variable "transit_router_id" {
   description = "Existing Transit Router ID"
   type        = string
-  default     = "tr-j6c5jwesgz9rc5ir9tqxn"
+  default     = "tr-j6cuc0gmwpgt0vyh1ihzs"
 }

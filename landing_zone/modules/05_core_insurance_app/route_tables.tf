@@ -11,7 +11,7 @@ resource "alicloud_route_table" "sit_web_rt" {
 }
 
 resource "alicloud_route_entry" "sit_default_route" {
-  count                = 0   # temp disable, after set use: var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.sit_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
   nexthop_type         = "NetworkInterface"
@@ -32,7 +32,7 @@ resource "alicloud_route_table" "uat_web_rt" {
 }
 
 resource "alicloud_route_entry" "uat_default_route" {
-  count                = 0   # temp disable, after set use: var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.uat_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
   nexthop_type         = "NetworkInterface"
@@ -53,7 +53,7 @@ resource "alicloud_route_table" "preprod_web_rt" {
 }
 
 resource "alicloud_route_entry" "preprod_default_route" {
-  count                = 0   # temp disable, after set use: var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.preprod_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
   nexthop_type         = "NetworkInterface"
@@ -74,7 +74,7 @@ resource "alicloud_route_table" "prod_web_rt" {
 }
 
 resource "alicloud_route_entry" "prod_default_route" {
-  count                = 0   # temp disable, after set use: var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.prod_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
   nexthop_type         = "NetworkInterface"

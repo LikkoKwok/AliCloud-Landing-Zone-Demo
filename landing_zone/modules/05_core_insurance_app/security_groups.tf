@@ -41,7 +41,7 @@ resource "alicloud_security_group_rule" "sit_web_ssh" {
   ip_protocol       = "tcp"
   port_range        = "22/22"
   security_group_id = alicloud_security_group.sit_web_sg.id
-  cidr_ip           = "10.20.3.0/24"  # Ops subnet
+  cidr_ip           = "10.10.30.0/24"  # Ops subnet
   description       = "SSH from Ops bastion for management"
 }
 
@@ -161,7 +161,7 @@ resource "alicloud_security_group_rule" "uat_web_ssh" {
   ip_protocol       = "tcp"
   port_range        = "22/22"
   security_group_id = alicloud_security_group.uat_web_sg.id
-  cidr_ip           = "10.20.2.0/24"
+  cidr_ip           = "10.10.30.0/24"
   description       = "SSH from Ops"
 }
 
@@ -225,7 +225,7 @@ resource "alicloud_security_group_rule" "preprod_web_ssh" {
   ip_protocol       = "tcp"
   port_range        = "22/22"
   security_group_id = alicloud_security_group.preprod_web_sg.id
-  cidr_ip    = "10.20.3.0/24"
+  cidr_ip    = "10.10.30.0/24"
   description       = "SSH from Ops"
 }
 
@@ -282,7 +282,7 @@ resource "alicloud_security_group_rule" "prod_web_ssh" {
   ip_protocol       = "tcp"
   port_range        = "22/22"
   security_group_id = alicloud_security_group.prod_web_sg.id
-  cidr_ip    = "10.20.3.0/24"
+  cidr_ip    = "10.10.30.0/24"
   description       = "SSH from Ops bastion only"
 }
 

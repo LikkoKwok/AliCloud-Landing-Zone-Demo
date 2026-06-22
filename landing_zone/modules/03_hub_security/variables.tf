@@ -27,11 +27,16 @@ variable "tags" {
     default = {} 
     }
 
-# Add this variable
 variable "hub_vpc_cidr" {
   description = "CIDR block for Hub Security VPC"
   type        = string
   default     = "10.20.0.0/16"
+}
+
+variable "inbound_redirect_cidrs" {
+  description = "CIDR block of the application VPC (Core Insurance) to redirect inbound traffic to Palo Alto"
+  type        = list(string)
+  default     = ["10.1.0.0/16", "10.2.0.0/16"]  # only include internet-facing services: Core Insurance and AI VPC CIDR. Adding shared service may cause issues with CyberArk connectivity
 }
 
 variable "dataworks_vpc_id" {
