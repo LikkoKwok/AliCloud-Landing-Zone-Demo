@@ -21,7 +21,7 @@ variable "core_insurance_vpc_cidr" {
 }
 
 
-variable "transit_router" {
+variable "transit_router_id" {
   description = "CEN Transit Router ID for VPC attachment"
   type        = string
 }
@@ -29,7 +29,6 @@ variable "transit_router" {
 variable "cen_id" {
   description = "CEN instance ID"
   type        = string
-  default     = ""
 }
 
 variable "kms_key_id" {
@@ -71,6 +70,11 @@ variable "my_public_ip" {
   description = "Your public IP for SSH access to bastion host (e.g., '203.0.113.50/32')"
   type        = string
   default     = ""
+}
+
+variable "hub_attachment_id" {
+  description = "Transit Router attachment ID of the Hub Security VPC"
+  type        = string
 }
 
 # validate CIDR is /16

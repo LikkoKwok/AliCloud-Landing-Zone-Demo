@@ -7,6 +7,10 @@ resource "alicloud_vpc" "hub" {
   vpc_name   = "${var.environment}-hub-vpc"
   cidr_block = var.hub_vpc_cidr
   tags       = var.tags
+  
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # VSwitches
@@ -40,15 +44,6 @@ resource "alicloud_vswitch" "ops" {
 #   pending_window_in_days = 7
 #   status                 = "Enabled"
 # }
-
-# ============================================
-# DATA SOURCE: Palo Alto ENI ID
-# ============================================
-data "alicloud_network_interfaces" "palo_alto" {
-  depends_on = [alicloud_instance.palo_alto]
-  
-  instance_id = alicloud_instance.palo_alto[0].id
-}
 
 # ============================================
 # PALO ALTO FIREWALL (MOCK)
@@ -140,17 +135,24 @@ resource "alicloud_slb_load_balancer" "ingress" {
 }
 
 # CEN
-resource "alicloud_cen_instance" "backbone" {
-  cen_instance_name = "${var.environment}-hk-sg-backbone"
-  description       = "HongKong primary CEN backbone"
-  tags              = var.tags
+# resource "alicloud_cen_instance" "backbone" {
+#   cen_instance_name = "${var.environment}-hk-sg-backbone"
+#   description       = "HongKong primary CEN backbone"
+#   tags              = var.tags
+# }
+
+data "alicloud_cen_instances" "existing" {
+  ids = [var.cen_id]
 }
 
-
 resource "alicloud_cen_transit_router_vpc_attachment" "hub" {
-  cen_id            = alicloud_cen_instance.backbone.id
+  cen_id            = var.cen_id
   transit_router_id = var.transit_router_id
   vpc_id            = alicloud_vpc.hub.id
+  
+  lifecycle {
+    prevent_destroy = true  # prevent from setting each time
+  }
   zone_mappings {
     zone_id    = data.alicloud_zones.available.zones[0].id
     vswitch_id = alicloud_vswitch.trusted.id
@@ -166,7 +168,7 @@ resource "alicloud_cen_transit_router_vpc_attachment" "hub" {
 # }
 
 # resource "alicloud_cen_bandwidth_package_attachment" "attach" {
-#   instance_id          = alicloud_cen_instance.backbone.id
+#   instance_id          = var.cen_id
 #   bandwidth_package_id = alicloud_cen_bandwidth_package.cross_border.id
 # }
 
@@ -177,10 +179,13 @@ resource "alicloud_cen_transit_router_vpc_attachment" "hub" {
 resource "alicloud_cen_transit_router_vpc_attachment" "dataworks" {
   count = var.dataworks_vpc_id != "" ? 1 : 0
   
-  cen_id            = alicloud_cen_instance.backbone.id
+  cen_id            = var.cen_id
   transit_router_id = var.transit_router_id
   vpc_id            = var.dataworks_vpc_id
   
+  lifecycle {
+    prevent_destroy = true  # prevent from setting each time
+  }
   zone_mappings {
     zone_id    = data.alicloud_zones.available.zones[0].id
     vswitch_id = var.dataworks_vswitch_id

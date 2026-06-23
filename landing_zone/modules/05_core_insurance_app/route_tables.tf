@@ -11,12 +11,12 @@ resource "alicloud_route_table" "sit_web_rt" {
 }
 
 resource "alicloud_route_entry" "sit_default_route" {
-  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
-  route_table_id       = alicloud_route_table.sit_web_rt.id
+  count                 = 0 # var.palo_alto_trust_eni_id != "" ? 1 : 0
+  route_table_id        = alicloud_route_table.sit_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
-  nexthop_type         = "NetworkInterface"
-  nexthop_id           = var.palo_alto_trust_eni_id
-  description          = "Force SIT outbound traffic through Palo Alto"
+  nexthop_type         = "Attachment"
+  nexthop_id           = var.hub_attachment_id  # Hub Security VPC's TR Attachment ID
+  description           = "Force SIT outbound traffic through Palo Alto"
 }
 
 resource "alicloud_route_table_attachment" "sit_attach" {
@@ -32,11 +32,11 @@ resource "alicloud_route_table" "uat_web_rt" {
 }
 
 resource "alicloud_route_entry" "uat_default_route" {
-  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 0 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.uat_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
-  nexthop_type         = "NetworkInterface"
-  nexthop_id           = var.palo_alto_trust_eni_id
+  nexthop_type         = "Attachment"
+  nexthop_id           = var.hub_attachment_id  # Hub Security VPC's TR Attachment ID
   description          = "Force UAT outbound traffic through Palo Alto"
 }
 
@@ -53,11 +53,11 @@ resource "alicloud_route_table" "preprod_web_rt" {
 }
 
 resource "alicloud_route_entry" "preprod_default_route" {
-  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 0 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.preprod_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
-  nexthop_type         = "NetworkInterface"
-  nexthop_id           = var.palo_alto_trust_eni_id
+  nexthop_type         = "Attachment"
+  nexthop_id           = var.hub_attachment_id  # Hub Security VPC's TR Attachment ID
   description          = "Force PreProd outbound traffic through Palo Alto"
 }
 
@@ -74,11 +74,11 @@ resource "alicloud_route_table" "prod_web_rt" {
 }
 
 resource "alicloud_route_entry" "prod_default_route" {
-  count                = 1 # var.palo_alto_trust_eni_id != "" ? 1 : 0
+  count                = 0 # var.palo_alto_trust_eni_id != "" ? 1 : 0
   route_table_id       = alicloud_route_table.prod_web_rt.id
   destination_cidrblock = "0.0.0.0/0"
-  nexthop_type         = "NetworkInterface"
-  nexthop_id           = var.palo_alto_trust_eni_id
+  nexthop_type         = "Attachment"
+  nexthop_id           = var.hub_attachment_id  # Hub Security VPC's TR Attachment ID
   description          = "Force Prod outbound traffic through Palo Alto"
 }
 

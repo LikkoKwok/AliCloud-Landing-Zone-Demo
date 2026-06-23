@@ -132,6 +132,16 @@ variable "common_tags" {
   default = {}
 }
 
+
+# ============================================
+# CEN & TRANSIT ROUTER
+# ============================================
+variable "cen_id" {
+  description = "Existing CEN instance ID (manually created)"
+  type        = string
+  default     = "cen-ycdypx620qa3zhdfo7"
+}
+
 variable "transit_router_id" {
   description = "Existing Transit Router ID"
   type        = string

@@ -22,3 +22,9 @@ variable "hub_vpc_id" {
   description = "Hub Security VPC ID for AI Gateway placement (shared with Palo Alto)"
   type        = string
 }
+
+variable "enable_training_jobs" {
+  description = "Enable PAI training jobs (DLC runs) - set to false for cost saving"
+  type        = bool
+  default     = false
+}

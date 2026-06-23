@@ -1,9 +1,13 @@
 # Central SLS project + immutable logstore
 resource "alicloud_log_project" "central" {
-  project_name = "central-audit-${var.environment}"
+  project_name = "central-audit-${var.environment}-v2"
   description  = "Central audit log store (3yr retention)"
   tags         = var.tags
+  lifecycle {
+    prevent_destroy = true
+  }
 }
+
 
 resource "alicloud_log_store" "audit" {
   project_name          = alicloud_log_project.central.project_name
@@ -25,31 +29,31 @@ resource "alicloud_log_store" "ai_ops" {
 }
 
 # Role allowing ActionTrail to write into SLS
-resource "alicloud_ram_role" "actiontrail_sls" {
-  role_name = "actiontrail-to-sls-${var.environment}"
+# resource "alicloud_ram_role" "actiontrail_sls" {
+#  role_name = "actiontrail-to-sls-${var.environment}"
+#
+#  assume_role_policy_document = jsonencode({
+#    Version = "1"
+#    Statement = [{
+#      Action    = "sts:AssumeRole"
+#      Effect    = "Allow"
+#      Principal = { Service = ["actiontrail.aliyuncs.com"] }
+#    }]
+#  })
+#  max_session_duration = 3600
+# }
 
-  assume_role_policy_document = jsonencode({
-    Version = "1"
-    Statement = [{
-      Action    = "sts:AssumeRole"
-      Effect    = "Allow"
-      Principal = { Service = ["actiontrail.aliyuncs.com"] }
-    }]
-  })
-  max_session_duration = 3600
-}
-
-resource "alicloud_ram_role_policy_attachment" "actiontrail_log" {
-  role_name   = alicloud_ram_role.actiontrail_sls.role_name
-  policy_name = "AliyunLogFullAccess"
-  policy_type = "System"
-}
+# resource "alicloud_ram_role_policy_attachment" "actiontrail_log" {
+#   role_name   = alicloud_ram_role.actiontrail_sls.role_name
+#   policy_name = "AliyunLogFullAccess"
+#   policy_type = "System"
+# }
 
 # Multi-account ActionTrail delivering ALL API calls (incl. AI platforms) to SLS
 resource "alicloud_actiontrail_trail" "org" {
   trail_name         = "org-multi-account-trail-${var.environment}"
-  sls_project_arn    = "acs:log:::project/${alicloud_log_project.central.project_name}"
-  sls_write_role_arn = alicloud_ram_role.actiontrail_sls.arn
+  sls_project_arn    = "acs:log:${var.region}:${var.account_id}:project/${alicloud_log_project.central.project_name}"
+# sls_write_role_arn = alicloud_ram_role.actiontrail_sls.arn
   trail_region       = "All"
   event_rw           = "All"
 }
@@ -82,6 +86,7 @@ resource "alicloud_config_rule" "oss_encryption" {
 }
 
 resource "alicloud_config_rule" "rds_encryption" {
+  count                     = 0
   rule_name                 = "rds-tde-check"
   source_owner              = "ALIYUN"
   source_identifier         = "rds-tde-enabled"
@@ -91,6 +96,7 @@ resource "alicloud_config_rule" "rds_encryption" {
 }
 
 resource "alicloud_config_rule" "slb_https" {
+  count                     = 0
   rule_name                 = "slb-listener-https-check"
   source_owner              = "ALIYUN"
   source_identifier         = "slb-listener-https-check"

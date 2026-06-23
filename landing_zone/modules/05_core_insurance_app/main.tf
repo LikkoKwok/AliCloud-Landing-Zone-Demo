@@ -16,6 +16,10 @@ resource "alicloud_vpc" "core_insurance" {
     Tier = "core-insurance"
     Description = "Hosts all 4 environments: SIT, UAT, PreProd, Prod"
   })
+  
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # ============================================
@@ -238,12 +242,13 @@ resource "alicloud_oss_bucket_server_side_encryption" "app_enc_prod" {
   kms_master_key_id = var.kms_key_id
 }
 
+
 # ============================================
 # ATTACH CORE INSURANCE VPC TO CEN
 # ============================================
 resource "alicloud_cen_transit_router_vpc_attachment" "core_insurance" {
   cen_id            = var.cen_id
-  transit_router_id = var.transit_router
+  transit_router_id = var.transit_router_id
   vpc_id            = alicloud_vpc.core_insurance.id
   
   zone_mappings {

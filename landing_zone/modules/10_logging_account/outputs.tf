@@ -14,6 +14,6 @@ output "config_aggregator_id" {
   value = alicloud_config_aggregator.org.id
 }
 
-output "actiontrail_role_arn" {
-  value = alicloud_ram_role.actiontrail_sls.arn
-}
+# output "actiontrail_role_arn" {
+#   value = alicloud_ram_role.actiontrail_sls.arn
+# }

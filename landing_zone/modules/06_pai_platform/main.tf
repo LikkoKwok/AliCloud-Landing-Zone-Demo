@@ -1,3 +1,121 @@
+# ============================================
+# PAI WORKSPACES (AI Innovation Lab OU)
+# Requirement: Isolate Claims and Actuarial teams
+# ============================================
+
+resource "random_string" "pai_suffix" {
+  length  = 6
+  special = false
+  upper   = false
+}
+
+# Claims Team Workspace
+resource "alicloud_pai_workspace_workspace" "claims" {
+  description    = "Workspace for Claims AI team - Intelligent Claims Processing"
+  workspace_name = "claims-ai-workspace-${var.environment}-${random_string.pai_suffix.result}"
+  display_name   = "Claims AI Workspace (${var.environment})"
+  env_types      = ["prod"]
+}
+
+# Actuarial Team Workspace
+resource "alicloud_pai_workspace_workspace" "actuarial" {
+  description    = "Workspace for Actuarial AI team - Risk Modeling"
+  workspace_name = "actuarial-ai-workspace-${var.environment}-${random_string.pai_suffix.result}"
+  display_name   = "Actuarial AI Workspace (${var.environment})"
+  env_types      = ["prod"]
+}
+
+# ============================================
+# PAI DATASETS (for Document Digitization)
+# Requirement: Training data for OCR and claims processing
+# ============================================
+
+# Dataset for OCR processed data (Document Digitization)
+resource "alicloud_pai_workspace_dataset" "claims_ocr_data" {
+  dataset_name = "claims-ocr-data-${var.environment}-${random_string.pai_suffix.result}"
+  data_source_type = "OSS"
+  uri              = "oss://${alicloud_oss_bucket.training_data.bucket}/ocr-processed/"
+  property         = "DIRECTORY"
+  workspace_id     = alicloud_pai_workspace_workspace.claims.id
+  description      = "Processed OCR data for Intelligent Claims Processing"
+}
+
+# Dataset for Actuarial training data
+resource "alicloud_pai_workspace_dataset" "actuarial_data" {
+  dataset_name     = "actuarial-training-data-${var.environment}-${random_string.pai_suffix.result}"
+  data_source_type = "OSS"
+  uri              = "oss://${alicloud_oss_bucket.training_data.bucket}/actuarial/"
+  property         = "DIRECTORY"
+  workspace_id     = alicloud_pai_workspace_workspace.actuarial.id
+  description      = "Actuarial risk modeling training data"
+}
+
+# ============================================
+# PAI EXPERIMENTS & RUNS (Actuarial Risk Modeling - PAI DLC)
+# ============================================
+
+# Experiment for Actuarial Risk Modeling
+resource "alicloud_pai_workspace_experiment" "actuarial_exp" {
+  experiment_name = "actuarial-risk-modeling-${var.environment}-${random_string.pai_suffix.result}"
+  workspace_id    = alicloud_pai_workspace_workspace.actuarial.id
+  artifact_uri    = "oss://${alicloud_oss_bucket.training_data.bucket}/experiments/"
+}
+
+# Training run for Actuarial Risk Modeling (PAI DLC training job)
+# Note: This is a placeholder; actual training job is submitted via PAI DLC.
+# The alicloud_pai_workspace_run resource is not yet available in provider,
+# so use CLI/console for actual training jobs or keep as placeholder.
+resource "alicloud_pai_workspace_run" "actuarial_run" {
+  count         = var.enable_training_jobs ? 1 : 0
+  run_name      = "actuarial-training-${var.environment}-${formatdate("YYYYMMDDhhmmss", timestamp())}"
+  experiment_id = alicloud_pai_workspace_experiment.actuarial_exp.id
+  source_type   = "TrainingService"
+  source_id     = "paidlc-${var.environment}"  # Placeholder for DLC job ID
+}
+
+# ============================================
+# PAI MODELS (Model Registry)
+# ============================================
+
+# Model registration for Claims LLM
+resource "alicloud_pai_workspace_model" "claims_llm" {
+  model_name     = "claims-llm-model-${var.environment}-${random_string.pai_suffix.result}"
+  workspace_id   = alicloud_pai_workspace_workspace.claims.id
+  accessibility  = "PRIVATE"
+  model_type     = "Checkpoint"
+  task           = "text-generation"
+  domain         = "nlp"
+  model_doc      = "oss://${alicloud_oss_bucket.training_data.bucket}/models/claims-llm/README.md"
+  labels {
+    key   = "framework"
+    value = "pytorch"
+  }
+  labels {
+    key   = "model-family"
+    value = "qwen"
+  }
+}
+
+# Model registration for Actuarial risk model
+resource "alicloud_pai_workspace_model" "actuarial_model" {
+  model_name     = "actuarial-risk-model-${var.environment}-${random_string.pai_suffix.result}"
+  workspace_id   = alicloud_pai_workspace_workspace.actuarial.id
+  accessibility  = "PRIVATE"
+  model_type     = "Checkpoint"
+  task           = "tabular-regression"
+  domain         = "finance"
+  model_doc      = "oss://${alicloud_pai_workspace_experiment.actuarial_exp.artifact_uri}/models/README.md"
+  labels {
+    key   = "framework"
+    value = "pytorch"
+  }
+  labels {
+    key   = "model-family"
+    value = "qwen"
+  }
+}
+
+
 data "alicloud_zones" "gpu" {
   available_instance_type = var.gpu_instance_type
   available_disk_category = "cloud_essd"

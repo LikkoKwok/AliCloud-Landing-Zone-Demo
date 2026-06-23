@@ -19,7 +19,7 @@ output "ops_subnet_cidr" {
 }
 
 output "cen_id" {
-  value = alicloud_cen_instance.backbone.id
+  value = var.cen_id
 }
 
 output "transit_router_id" {
@@ -38,4 +38,8 @@ output "kms_key_id" {
   description = "The ID of the KMS key used for encryption"
   value       = ""
   # value       = alicloud_kms_key.hub.id
+}
+
+output "hub_vpc_attachment_id" {
+  value = alicloud_cen_transit_router_vpc_attachment.hub.id
 }

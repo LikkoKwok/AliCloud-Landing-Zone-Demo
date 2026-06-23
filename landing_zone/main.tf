@@ -31,7 +31,8 @@ module "hub_security" {
   region                  = var.region
   secondary_region        = var.secondary_region
   hub_vpc_cidr            = var.hub_vpc_cidr
-  inbound_redirect_cidrs = [var.core_insurance_vpc_cidr, var.ai_lab_vpc_cidr,]
+  inbound_redirect_cidrs  = [var.core_insurance_vpc_cidr, var.ai_lab_vpc_cidr,]
+  cen_id                  = var.cen_id
   transit_router_id       = var.transit_router_id
   firewall_instance_type  = var.firewall_instance_type
   backbone_bandwidth_mbps = var.backbone_bandwidth_mbps
@@ -53,8 +54,8 @@ module "shared_service" {
   az_count           = var.az_count
   instance_type      = var.bastion_instance_type
   hub_vpc_id         = module.hub_security.hub_vpc_id
-  cen_id             = module.hub_security.cen_id
-  transit_router_id  = module.hub_security.transit_router_id
+  cen_id             = var.cen_id
+  transit_router_id  = var.transit_router_id
   tags               = local.base_tags
   providers          = { alicloud = alicloud.shared }
 }
@@ -62,16 +63,17 @@ module "shared_service" {
 
 # Update core_insurance_app module to receive palo_alto_trust_eni_id
 module "core_insurance_app" {
-  source         = "./modules/05_core_insurance_app"
-  environment        = var.environment
-  management_vpc_cidr = var.management_vpc_cidr
+  source                  = "./modules/05_core_insurance_app"
+  environment             = var.environment
+  management_vpc_cidr     = var.management_vpc_cidr
   core_insurance_vpc_cidr = var.core_insurance_vpc_cidr
-  transit_router = module.hub_security.transit_router_id
-  cen_id         = module.hub_security.cen_id
-  kms_key_id     = module.hub_security.kms_key_id
-  palo_alto_trust_eni_id = module.hub_security.palo_alto_trust_eni_id
-  tags           = local.base_tags
-  providers      = { alicloud = alicloud.app }
+  hub_attachment_id       = module.hub_security.hub_vpc_attachment_id
+  transit_router_id       = module.hub_security.transit_router_id
+  cen_id                  = module.hub_security.cen_id
+  kms_key_id              = module.hub_security.kms_key_id
+  palo_alto_trust_eni_id  = module.hub_security.palo_alto_trust_eni_id
+  tags                    = local.base_tags
+  providers               = { alicloud = alicloud.app }
 }
 
 module "pai_platform" {
@@ -112,7 +114,9 @@ module "financial_governance" {
 module "logging_account" {
   source             = "./modules/10_logging_account"
   environment        = var.environment
+  region             = var.region
   log_retention_days = var.log_retention_days
+  account_id         = var.account_ids.log 
   tags               = local.base_tags
   providers          = { alicloud = alicloud.log }
 }

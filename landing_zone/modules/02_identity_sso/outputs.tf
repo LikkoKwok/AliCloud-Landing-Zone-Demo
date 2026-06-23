@@ -9,3 +9,4 @@
 output "ai_app_service_role_arn" {
   value = alicloud_ram_role.ai_app_service.arn
 }
+

@@ -51,8 +51,13 @@ variable "dataworks_vswitch_id" {
   default     = "vsw-j6cnw80zcmukfa848xe3a"
 }
 
+# Due to AliCloud Restriction, if needed to create new CEN and TR, input Ids at root variables
 variable "transit_router_id" {
   description = "Existing Transit Router ID (manually created)"
   type        = string
-  default     = "tr-j6c5jwesgz9rc5ir9tqxn"
+}
+
+variable "cen_id" {
+  description = "Existing CEN instance ID"
+  type        = string
 }
