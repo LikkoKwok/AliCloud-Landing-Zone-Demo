@@ -17,9 +17,9 @@ resource "alicloud_vpc" "core_insurance" {
     Description = "Hosts all 4 environments: SIT, UAT, PreProd, Prod"
   })
   
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 # ============================================

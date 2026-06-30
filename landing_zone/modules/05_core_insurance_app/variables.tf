@@ -61,9 +61,8 @@ variable "palo_alto_trust_eni_id" {
 }
 
 variable "my_public_ip" {
-  description = "Your public IP for SSH access to bastion host (e.g., '203.0.113.50/32')"
+  description = "Mock whitelist IP"
   type        = string
-  default     = ""
 }
 
 variable "hub_attachment_id" {

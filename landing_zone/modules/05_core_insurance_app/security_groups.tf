@@ -277,6 +277,24 @@ resource "alicloud_security_group_rule" "prod_web_http_from_bastion" {
   description       = "HTTP from Ops Bastion"
 }
 
+resource "alicloud_security_group_rule" "mock_whitelist_ip" {
+  type              = "ingress"
+  ip_protocol       = "tcp"
+  port_range        = "8080/8080"
+  security_group_id = alicloud_security_group.prod_web_sg.id
+  cidr_ip           = var.my_public_ip
+  description       = "Mock Allow Whitelist IP"
+}
+
+resource "alicloud_security_group_rule" "allow_nat" {
+  type              = "ingress"
+  ip_protocol       = "tcp"
+  port_range        = "1/65535"
+  security_group_id = alicloud_security_group.prod_web_sg.id
+  cidr_ip           = "10.20.0.0/16"  # NAT gateway subnet cidr
+  description       = "Allow ingress from NAT"
+}
+
 # Allow HTTPS from Bastion (Ops Subnet)
 resource "alicloud_security_group_rule" "prod_web_https_from_bastion" {
   type              = "ingress"

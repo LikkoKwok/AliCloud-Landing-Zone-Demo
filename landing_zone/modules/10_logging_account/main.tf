@@ -3,9 +3,9 @@ resource "alicloud_log_project" "central" {
   project_name = "central-audit-${var.environment}-v2"
   description  = "Central audit log store (3yr retention)"
   tags         = var.tags
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 

@@ -180,6 +180,7 @@ resource "alicloud_cen_transit_router_vpc_attachment" "ai_lab" {
   cen_id            = var.cen_id
   transit_router_id = var.transit_router_id
   vpc_id            = alicloud_vpc.ai.id
+  auto_publish_route_enabled = true  # KEEPS ROUTE SYNCHRONIZATION ENABLED
 
   lifecycle {
     prevent_destroy = false

@@ -14,9 +14,9 @@ resource "alicloud_vpc" "shared_service" {
   cidr_block = var.shared_service_vpc_cidr
   tags       = merge(var.tags, { Service = "shared-services" })
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 # Shared Service Subnets

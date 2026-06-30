@@ -72,6 +72,7 @@ module "core_insurance_app" {
   cen_id                  = module.hub_security.cen_id
   kms_key_id              = module.hub_security.kms_key_id
   palo_alto_trust_eni_id  = module.hub_security.palo_alto_trust_eni_id
+  my_public_ip            = var.my_public_ip
   tags                    = local.base_tags
   providers               = { alicloud = alicloud.app }
 }

@@ -162,6 +162,6 @@ variable "gpu_instance_type" {
 }
 
 variable "my_public_ip" {
-  description = "Mock Whitelist IP for Admin SSH to bastion host and End users to Apps (203.0.113.50/32)"
+  description = "Mock Whitelist IP for Admin SSH to bastion host and End users to Apps"
   type        = string
 }

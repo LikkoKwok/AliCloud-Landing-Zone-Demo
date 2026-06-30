@@ -8,9 +8,9 @@ resource "alicloud_vpc" "hub" {
   cidr_block = var.hub_vpc_cidr
   tags       = var.tags
   
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 # VSwitches
@@ -191,7 +191,7 @@ resource "alicloud_forward_entry" "web_traffic" {
 }
 
 # ============================================
-# ROUTING - 將出站流量指向 NAT Gateway
+# ROUTING - Egress traffic to NAT Gateway
 # ============================================
 resource "alicloud_route_table" "trusted_rt" {
   vpc_id           = alicloud_vpc.hub.id
@@ -204,7 +204,7 @@ resource "alicloud_route_table_attachment" "trusted" {
 }
 
 # ============================================
-# 公有子網路由：入站流量 → IPv4 Gateway
+# Enforce all ingress traffic through IPv4 Gateway
 # ============================================
 resource "alicloud_route_table" "public_rt" {
   vpc_id           = alicloud_vpc.hub.id
@@ -224,7 +224,7 @@ resource "alicloud_route_entry" "to_ipv4_gateway" {
 }
 
 # ============================================
-# SECURITY GROUP - 簡單白名單控制
+# SECURITY GROUP - Mock Whitelist
 # ============================================
 resource "alicloud_security_group" "web_access" {
   vpc_id                    = alicloud_vpc.hub.id

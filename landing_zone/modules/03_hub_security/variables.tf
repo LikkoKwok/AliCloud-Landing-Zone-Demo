@@ -63,7 +63,7 @@ variable "cen_id" {
 }
 
 variable "my_public_ip" {
-  description = "Mock whitelist IP (203.0.113.50/32)"
+  description = "Mock whitelist IP"
   type        = string
 }
 

@@ -1,0 +1,807 @@
+{
+  "version": 4,
+  "terraform_version": "1.15.6",
+  "serial": 1078,
+  "lineage": "fe631eb8-c584-4b6c-0c93-9fedb20cb589",
+  "outputs": {},
+  "resources": [
+    {
+      "module": "module.core_insurance_app",
+      "mode": "data",
+      "type": "alicloud_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].app",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "available_disk_category": null,
+            "available_instance_type": null,
+            "available_resource_creation": "VSwitch",
+            "available_slb_address_ip_version": null,
+            "available_slb_address_type": null,
+            "enable_details": false,
+            "id": "1855267249",
+            "ids": [
+              "cn-hongkong-b",
+              "cn-hongkong-c",
+              "cn-hongkong-d"
+            ],
+            "instance_charge_type": "PostPaid",
+            "multi": false,
+            "network_type": null,
+            "output_file": null,
+            "spot_strategy": "NoSpot",
+            "zones": [
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-b",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-c",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-d",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.core_insurance_app",
+      "mode": "managed",
+      "type": "alicloud_route_table",
+      "name": "prod_web_rt",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].app",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "associate_type": "VSwitch",
+            "create_time": "2026-06-22T06:09:22Z",
+            "description": "Forces Prod web traffic through Palo Alto",
+            "id": "vtb-j6c0qfumfn87vdpzvzlky",
+            "name": "demo-prod-web-rt",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_propagation_enable": true,
+            "route_table_name": "demo-prod-web-rt",
+            "status": "Available",
+            "tags": {},
+            "timeouts": null,
+            "vpc_id": "vpc-j6ct2wq26snr5yq144u83"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.core_insurance_app.alicloud_vpc.core_insurance"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.core_insurance_app",
+      "mode": "managed",
+      "type": "alicloud_route_table",
+      "name": "sit_web_rt",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].app",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "associate_type": "VSwitch",
+            "create_time": "2026-06-22T06:09:22Z",
+            "description": "Forces SIT web traffic through Palo Alto",
+            "id": "vtb-j6ch68tzadjpwctdtmiad",
+            "name": "demo-sit-web-rt",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_propagation_enable": true,
+            "route_table_name": "demo-sit-web-rt",
+            "status": "Available",
+            "tags": {},
+            "timeouts": null,
+            "vpc_id": "vpc-j6ct2wq26snr5yq144u83"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.core_insurance_app.alicloud_vpc.core_insurance"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.core_insurance_app",
+      "mode": "managed",
+      "type": "alicloud_route_table",
+      "name": "uat_web_rt",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].app",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "associate_type": "VSwitch",
+            "create_time": "2026-06-22T06:09:18Z",
+            "description": "Forces UAT web traffic through Palo Alto",
+            "id": "vtb-j6cbgq209ruyl6kfz1wjr",
+            "name": "demo-uat-web-rt",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_propagation_enable": true,
+            "route_table_name": "demo-uat-web-rt",
+            "status": "Available",
+            "tags": {},
+            "timeouts": null,
+            "vpc_id": "vpc-j6ct2wq26snr5yq144u83"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.core_insurance_app.alicloud_vpc.core_insurance"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.core_insurance_app",
+      "mode": "managed",
+      "type": "alicloud_vpc",
+      "name": "core_insurance",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].app",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "cidr_block": "10.1.0.0/16",
+            "classic_link_enabled": false,
+            "create_time": "2026-06-22T06:09:11Z",
+            "description": "",
+            "dns_hostname_status": "DISABLED",
+            "dry_run": null,
+            "enable_ipv6": false,
+            "force_delete": null,
+            "id": "vpc-j6ct2wq26snr5yq144u83",
+            "ipv4_cidr_mask": null,
+            "ipv4_ipam_pool_id": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_blocks": [],
+            "ipv6_isp": null,
+            "is_default": false,
+            "name": "demo-core-insurance-vpc",
+            "region_id": "cn-hongkong",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_table_id": "vtb-j6chpzq79inf0lmnshx51",
+            "router_id": "vrt-j6cbeqys9stbsn8dlteys",
+            "router_table_id": "vtb-j6chpzq79inf0lmnshx51",
+            "secondary_cidr_blocks": [],
+            "secondary_cidr_mask": null,
+            "status": "Available",
+            "system_route_table_description": "",
+            "system_route_table_name": "",
+            "system_route_table_route_propagation_enable": true,
+            "tags": {
+              "Description": "Hosts all 4 environments: SIT, UAT, PreProd, Prod",
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone",
+              "Tier": "core-insurance"
+            },
+            "timeouts": null,
+            "user_cidrs": [],
+            "vpc_name": "demo-core-insurance-vpc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "module": "module.core_insurance_app",
+      "mode": "managed",
+      "type": "alicloud_vswitch",
+      "name": "prod_web",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].app",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": "cn-hongkong-b",
+            "cidr_block": "10.1.31.0/24",
+            "create_time": "2026-06-22T06:09:19Z",
+            "description": "",
+            "enable_ipv6": false,
+            "id": "vsw-j6c5fnoa29k4s7rvefl28",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_mask": null,
+            "is_default": false,
+            "name": "demo-prod-web",
+            "status": "Available",
+            "tags": {
+              "Environment": "Prod",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone",
+              "Tier": "web"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-j6ct2wq26snr5yq144u83",
+            "vpc_ipv6_cidr_block": null,
+            "vswitch_name": "demo-prod-web",
+            "zone_id": "cn-hongkong-b"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.core_insurance_app.alicloud_vpc.core_insurance",
+            "module.core_insurance_app.data.alicloud_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.hub_security",
+      "mode": "data",
+      "type": "alicloud_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].hub",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "available_disk_category": null,
+            "available_instance_type": null,
+            "available_resource_creation": "VSwitch",
+            "available_slb_address_ip_version": null,
+            "available_slb_address_type": null,
+            "enable_details": false,
+            "id": "1855267249",
+            "ids": [
+              "cn-hongkong-b",
+              "cn-hongkong-c",
+              "cn-hongkong-d"
+            ],
+            "instance_charge_type": "PostPaid",
+            "multi": false,
+            "network_type": null,
+            "output_file": null,
+            "spot_strategy": "NoSpot",
+            "zones": [
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-b",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-c",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-d",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.hub_security",
+      "mode": "managed",
+      "type": "alicloud_route_table",
+      "name": "public_rt",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].hub",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "associate_type": "VSwitch",
+            "create_time": "2026-06-29T06:17:25Z",
+            "description": "",
+            "id": "vtb-j6c5vge7fur07lxs80nrv",
+            "name": "demo-public-rt",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_propagation_enable": true,
+            "route_table_name": "demo-public-rt",
+            "status": "Available",
+            "tags": {},
+            "timeouts": null,
+            "vpc_id": "vpc-j6cil4r60sipikrt2094m"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.hub_security.alicloud_vpc.hub"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.hub_security",
+      "mode": "managed",
+      "type": "alicloud_route_table",
+      "name": "trusted_rt",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].hub",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "associate_type": "VSwitch",
+            "create_time": "2026-06-22T04:42:29Z",
+            "description": "",
+            "id": "vtb-j6ck82hyh9poi7ma2r88v",
+            "name": "demo-trusted-rt",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_propagation_enable": true,
+            "route_table_name": "demo-trusted-rt",
+            "status": "Available",
+            "tags": {},
+            "timeouts": null,
+            "vpc_id": "vpc-j6cil4r60sipikrt2094m"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.hub_security.alicloud_vpc.hub"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.hub_security",
+      "mode": "managed",
+      "type": "alicloud_vpc",
+      "name": "hub",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].hub",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "cidr_block": "10.20.0.0/16",
+            "classic_link_enabled": false,
+            "create_time": "2026-06-22T04:42:06Z",
+            "description": "",
+            "dns_hostname_status": "DISABLED",
+            "dry_run": null,
+            "enable_ipv6": false,
+            "force_delete": null,
+            "id": "vpc-j6cil4r60sipikrt2094m",
+            "ipv4_cidr_mask": null,
+            "ipv4_ipam_pool_id": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_blocks": [],
+            "ipv6_isp": null,
+            "is_default": false,
+            "name": "demo-hub-vpc",
+            "region_id": "cn-hongkong",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_table_id": "vtb-j6c2txnt03n5tuxn67wvu",
+            "router_id": "vrt-j6ckcs0v88tt2ciygjak9",
+            "router_table_id": "vtb-j6c2txnt03n5tuxn67wvu",
+            "secondary_cidr_blocks": [],
+            "secondary_cidr_mask": null,
+            "status": "Available",
+            "system_route_table_description": "",
+            "system_route_table_name": "",
+            "system_route_table_route_propagation_enable": true,
+            "tags": {
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone"
+            },
+            "timeouts": null,
+            "user_cidrs": [],
+            "vpc_name": "demo-hub-vpc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "module": "module.hub_security",
+      "mode": "managed",
+      "type": "alicloud_vswitch",
+      "name": "trusted",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].hub",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": "cn-hongkong-b",
+            "cidr_block": "10.20.2.0/24",
+            "create_time": "2026-06-22T04:42:51Z",
+            "description": "",
+            "enable_ipv6": false,
+            "id": "vsw-j6c71dob9r37fhlv2ifrx",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_mask": null,
+            "is_default": false,
+            "name": "demo-trusted",
+            "status": "Available",
+            "tags": {
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-j6cil4r60sipikrt2094m",
+            "vpc_ipv6_cidr_block": null,
+            "vswitch_name": "demo-trusted",
+            "zone_id": "cn-hongkong-b"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.hub_security.alicloud_vpc.hub",
+            "module.hub_security.data.alicloud_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.pai_platform",
+      "mode": "data",
+      "type": "alicloud_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].ai_training",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "available_disk_category": null,
+            "available_instance_type": null,
+            "available_resource_creation": "VSwitch",
+            "available_slb_address_ip_version": null,
+            "available_slb_address_type": null,
+            "enable_details": false,
+            "id": "1855267249",
+            "ids": [
+              "cn-hongkong-b",
+              "cn-hongkong-c",
+              "cn-hongkong-d"
+            ],
+            "instance_charge_type": "PostPaid",
+            "multi": false,
+            "network_type": null,
+            "output_file": null,
+            "spot_strategy": "NoSpot",
+            "zones": [
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-b",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-c",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-d",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.pai_platform",
+      "mode": "managed",
+      "type": "alicloud_vpc",
+      "name": "ai",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].ai_training",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "cidr_block": "10.2.0.0/16",
+            "classic_link_enabled": false,
+            "create_time": "2026-06-25T02:48:12Z",
+            "description": "",
+            "dns_hostname_status": "DISABLED",
+            "dry_run": null,
+            "enable_ipv6": false,
+            "force_delete": null,
+            "id": "vpc-j6cy3o5blc2o0ba8badpu",
+            "ipv4_cidr_mask": null,
+            "ipv4_ipam_pool_id": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_blocks": [],
+            "ipv6_isp": null,
+            "is_default": false,
+            "name": "ai-lab-vpc",
+            "region_id": "cn-hongkong",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_table_id": "vtb-j6clo66756vcddo629rsk",
+            "router_id": "vrt-j6cwuk0xrh9nwcnt20r1v",
+            "router_table_id": "vtb-j6clo66756vcddo629rsk",
+            "secondary_cidr_blocks": [],
+            "secondary_cidr_mask": null,
+            "status": "Available",
+            "system_route_table_description": "",
+            "system_route_table_name": "",
+            "system_route_table_route_propagation_enable": true,
+            "tags": {
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone",
+              "Workload": "AI"
+            },
+            "timeouts": null,
+            "user_cidrs": [],
+            "vpc_name": "ai-lab-vpc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "module": "module.pai_platform",
+      "mode": "managed",
+      "type": "alicloud_vswitch",
+      "name": "data",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].ai_training",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": "cn-hongkong-b",
+            "cidr_block": "10.2.1.0/24",
+            "create_time": "2026-06-25T02:48:18Z",
+            "description": "",
+            "enable_ipv6": false,
+            "id": "vsw-j6c3eafbxpn5dfadfepuk",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_mask": null,
+            "is_default": false,
+            "name": "ai-data",
+            "status": "Available",
+            "tags": {
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-j6cy3o5blc2o0ba8badpu",
+            "vpc_ipv6_cidr_block": null,
+            "vswitch_name": "ai-data",
+            "zone_id": "cn-hongkong-b"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.pai_platform.alicloud_vpc.ai",
+            "module.pai_platform.data.alicloud_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.shared_service",
+      "mode": "data",
+      "type": "alicloud_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].shared",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "available_disk_category": null,
+            "available_instance_type": null,
+            "available_resource_creation": "VSwitch",
+            "available_slb_address_ip_version": null,
+            "available_slb_address_type": null,
+            "enable_details": false,
+            "id": "1855267249",
+            "ids": [
+              "cn-hongkong-b",
+              "cn-hongkong-c",
+              "cn-hongkong-d"
+            ],
+            "instance_charge_type": "PostPaid",
+            "multi": false,
+            "network_type": null,
+            "output_file": null,
+            "spot_strategy": "NoSpot",
+            "zones": [
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-b",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-c",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              },
+              {
+                "available_disk_categories": [],
+                "available_instance_types": [],
+                "available_resource_creation": [],
+                "id": "cn-hongkong-d",
+                "local_name": "",
+                "multi_zone_ids": [],
+                "slb_slave_zone_ids": []
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.shared_service",
+      "mode": "managed",
+      "type": "alicloud_vpc",
+      "name": "shared_service",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].shared",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "cidr_block": "10.10.0.0/16",
+            "classic_link_enabled": false,
+            "create_time": "2026-06-23T03:07:22Z",
+            "description": "",
+            "dns_hostname_status": "DISABLED",
+            "dry_run": null,
+            "enable_ipv6": false,
+            "force_delete": null,
+            "id": "vpc-j6c6gvfx81al6lsgxjzww",
+            "ipv4_cidr_mask": null,
+            "ipv4_ipam_pool_id": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_blocks": [],
+            "ipv6_isp": null,
+            "is_default": false,
+            "name": "demo-shared-service-vpc",
+            "region_id": "cn-hongkong",
+            "resource_group_id": "rg-acfnxteh2xsdvnq",
+            "route_table_id": "vtb-j6ckmyepc9h1xxz7qp8k2",
+            "router_id": "vrt-j6cb2ajzxi8xl4qovjb0x",
+            "router_table_id": "vtb-j6ckmyepc9h1xxz7qp8k2",
+            "secondary_cidr_blocks": [],
+            "secondary_cidr_mask": null,
+            "status": "Available",
+            "system_route_table_description": "",
+            "system_route_table_name": "",
+            "system_route_table_route_propagation_enable": true,
+            "tags": {
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone",
+              "Service": "shared-services"
+            },
+            "timeouts": null,
+            "user_cidrs": [],
+            "vpc_name": "demo-shared-service-vpc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "module": "module.shared_service",
+      "mode": "managed",
+      "type": "alicloud_vswitch",
+      "name": "unified_ingress",
+      "provider": "provider[\"registry.terraform.io/aliyun/alicloud\"].shared",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": "cn-hongkong-b",
+            "cidr_block": "10.10.1.0/24",
+            "create_time": "2026-06-23T03:07:28Z",
+            "description": "",
+            "enable_ipv6": false,
+            "id": "vsw-j6cblfkmae7ku5y4sxawe",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_mask": null,
+            "is_default": false,
+            "name": "demo-unified-ingress",
+            "status": "Available",
+            "tags": {
+              "Environment": "demo",
+              "ManagedBy": "Terraform",
+              "Project": "LandingZone",
+              "Tier": "ingress"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-j6c6gvfx81al6lsgxjzww",
+            "vpc_ipv6_cidr_block": null,
+            "vswitch_name": "demo-unified-ingress",
+            "zone_id": "cn-hongkong-b"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.shared_service.alicloud_vpc.shared_service",
+            "module.shared_service.data.alicloud_zones.available"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": [
+    {
+      "object_kind": "var",
+      "config_addr": "module.core_insurance_app.var.core_insurance_vpc_cidr",
+      "status": "unknown",
+      "objects": null
+    }
+  ]
+}
