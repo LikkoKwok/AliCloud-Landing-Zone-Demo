@@ -2,7 +2,7 @@ aliyun
 .terraform.lock.hcl
 .terraform/
 *.tfstate
-*.tfstate.backup
+*.tfstate.*
 .terraform.tfvars
 .terraform.tfvars.json
 *.tfvars
