@@ -11,7 +11,13 @@ Partner Certification Exam by addressing the specific requirements.
 - GPU resource quotas and scheduling policies
 
 ## How My Architecture Addresses This
-Requirement	Implementation Environment Isolation	4 separate subnets per environment (SIT, UAT, PreProd, Prod) within Core Insurance VPC, each with dedicated CIDR blocks and Security Groups Business Separation	Dedicated VPCs for Core Insurance (10.1.0.0/16) and AI Lab (10.2.0.0/16) AI Team Isolation	PAI Workspaces created for Claims and Actuarial teams with separate Resource Groups and Datasets Network Isolation	Cross-environment blocking rules in Security Groups prevent SIT/UAT/PreProd from accessing Prod resources GPU Quotas	ACK GPU node pool with auto-scaling (min_size=0, max_size=var.gpu_max_nodes) ensures dynamic GPU allocation
+| Requirement | Implementation |
+| :-------- | :-------- |
+| Environment Isolation | 4 separate VPCs per environment (SIT, UAT, PreProd, Prod) for Core Insurance App, each with dedicated CIDR blocks and Security Groups |
+| Business Separation | Dedicated VPCs for Core Insurance (10.1.0.0/16) and AI Lab (10.2.0.0/16) |
+| AI Team Isolation | PAI Workspaces created for Claims and Actuarial teams with separate Resource Groups and Datasets |
+| Network Isolation | Cross-environment blocking rules in Security Groups prevent SIT/UAT/PreProd from accessing Prod resources |
+| GPU Quotas | ACK GPU node pool with auto-scaling (min_size=0, max_size=var.gpu_max_nodes) ensures dynamic GPU allocation |
 
 ## 2. Identity and Access Management
 ## Requirements
